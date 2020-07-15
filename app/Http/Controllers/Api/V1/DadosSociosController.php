@@ -2,33 +2,29 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\DadosSocios;
-use ArturJr\PrestoClient\ResultsSession;
-use ArturJr\PrestoClient\StatementClient;
+use App\Enum\DbTable;
 use Illuminate\Http\Response;
+use App\Http\Requests\DadosSocios;
+use App\Http\Controllers\Api\ApiBaseController;
 
-class DadosSociosController extends Controller
+class DadosSociosController extends ApiBaseController
 {
+    public function __construct()
+    {
+        $this->setTable(DbTable::DB_TABLE_CNPJ_SOCIOS);
+        parent::__construct();
+    }
+
     public function postDadosSocios(DadosSocios $request)
     {
-        $dadosSocios = [];
-        $client = new StatementClient($this->clientSession, "SELECT * FROM $this->catalog.$this->dbname.cnpj_dados_socios_pj WHERE cnpj = '$request->cnpj'");
-        $resultSession = new ResultsSession($client);
-        $result = $resultSession->execute()->yieldResults();
-        foreach ($result as $row) {
-            foreach ($row->yieldDataArray() as $item) {
-                if (!is_null($item)) {
-                    $dadosSocios[] = $item;
-                }
-            }
-        }
-        $client->close();
+        $this->addFilter("cnpj", "=", $request->cnpj);
+        $this->statementClient();
 
-        if ($this->_notFound($dadosSocios)) {
-            return response()->json(["message" => "Sócios não encontrados para o CNPJ $request->cnpj."], Response::HTTP_NOT_FOUND);
+        if ($this->_notFound()) {
+            $this->setDataResponse("Sócios não encontrados para o CNPJ $request->cnpj.");
+            return response()->json($this->getDataResponse(), Response::HTTP_NOT_FOUND);
         }
 
-        return response()->json($dadosSocios);
+        return response()->json($this->getDataResponse());
     }
 }
