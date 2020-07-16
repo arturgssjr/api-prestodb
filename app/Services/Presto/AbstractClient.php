@@ -1,13 +1,11 @@
 <?php
+namespace App\Services\Presto;
 
-namespace App\Http\Controllers\Api;
-
-use App\Http\Controllers\Controller;
 use ArturJr\PrestoClient\ClientSession;
 use ArturJr\PrestoClient\ResultsSession;
 use ArturJr\PrestoClient\StatementClient;
 
-class ApiBaseController extends Controller
+abstract class AbstractClient
 {
     private $clientSession;
     private $statementClient;
@@ -29,11 +27,16 @@ class ApiBaseController extends Controller
             $this->host,
             $this->catalog
         );
+    }
+
+    private function _setQuery()
+    {
         $this->query = "SELECT * FROM {$this->catalog}.{$this->schema}.{$this->table}";
     }
 
     public function statementClient(): void
     {
+        $this->_setQuery();
         $this->_parseFilter();
         $this->statementClient = new StatementClient($this->clientSession, $this->query);
         $this->resultSession();
@@ -75,7 +78,7 @@ class ApiBaseController extends Controller
         }
     }
 
-    protected function addFilter(string $column, string $operator, string $value, string $clause = null): void
+    public function addFilter(string $column, string $operator, string $value, string $clause = null): void
     {
         $this->filter[] = [
             "column" => $column,
@@ -85,7 +88,7 @@ class ApiBaseController extends Controller
         ];
     }
 
-    protected function _notFound(): bool
+    public function _notFound(): bool
     {
         if (empty($this->dataResponse['data'])) {
             $this->dataResponse['status'] = 'error';

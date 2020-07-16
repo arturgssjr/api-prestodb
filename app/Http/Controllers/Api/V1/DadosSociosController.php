@@ -5,26 +5,26 @@ namespace App\Http\Controllers\Api\V1;
 use App\Enum\DbTable;
 use Illuminate\Http\Response;
 use App\Http\Requests\DadosSocios;
-use App\Http\Controllers\Api\ApiBaseController;
+use App\Http\Controllers\Api\ApiBigDataBaseController;
 
-class DadosSociosController extends ApiBaseController
+class DadosSociosController extends ApiBigDataBaseController
 {
     public function __construct()
     {
-        $this->setTable(DbTable::DB_TABLE_CNPJ_SOCIOS);
         parent::__construct();
+        $this->getPrestoClient()->setTable(DbTable::DB_TABLE_CNPJ_SOCIOS);
     }
 
     public function postDadosSocios(DadosSocios $request)
     {
-        $this->addFilter("cnpj", "=", $request->cnpj);
-        $this->statementClient();
+        $this->getPrestoClient()->addFilter("cnpj", "=", $request->cnpj);
+        $this->getPrestoClient()->statementClient();
 
-        if ($this->_notFound()) {
-            $this->setDataResponse("Sócios não encontrados para o CNPJ $request->cnpj.");
-            return response()->json($this->getDataResponse(), Response::HTTP_NOT_FOUND);
+        if ($this->getPrestoClient()->_notFound()) {
+            $this->getPrestoClient()->setDataResponse("Sócios não encontrados para o CNPJ $request->cnpj.");
+            return response()->json($this->getPrestoClient()->getDataResponse(), Response::HTTP_NOT_FOUND);
         }
 
-        return response()->json($this->getDataResponse());
+        return response()->json($this->getPrestoClient()->getDataResponse());
     }
 }
