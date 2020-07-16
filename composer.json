@@ -10,6 +10,7 @@
     "require": {
         "php": "^7.2.5",
         "ext-curl": "^7.3",
+        "artur.junior/presto-client": "v0.1.1",
         "caouecs/laravel-lang": "~6.1",
         "fideloper/proxy": "^4.2",
         "fig/http-message-util": "^1.1",
@@ -19,10 +20,11 @@
         "laravel/passport": "^9.3",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.1",
-        "psr/log": "^1.1",
-        "artur.junior/presto-client": "v0.1.1"
+        "laravelcollective/html": "^6.1",
+        "psr/log": "^1.1"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.3",
         "facade/ignition": "^2.0",
         "fzaninotto/faker": "^1.9.1",
         "mockery/mockery": "^1.3.1",

@@ -52524,6 +52524,13 @@ window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 try {
   window.Popper = __webpack_require__(/*! popper.js */ "./node_modules/popper.js/dist/esm/popper.js")["default"];
   window.$ = window.jQuery = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+  /**
+   * Config Tooltip
+   */
+
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+  });
 
   __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.js");
 } catch (e) {}
@@ -52882,6 +52889,35 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/confirmation-modal.js":
+/*!********************************************!*\
+  !*** ./resources/js/confirmation-modal.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var Modal = {
+  init: function init() {
+    this.initConfirmationModal();
+  },
+  initConfirmationModal: function initConfirmationModal() {
+    $(document).on('click', '.load-confirmation-modal', function (event) {
+      var nome = $(this).attr('data-name');
+      var tipo = $(this).attr('data-type');
+      $('#confirmation-modal').modal({
+        backdrop: 'static'
+      });
+      $('#confirmation-modal h5.modal-title').html('Confirmar Exclusão - ' + tipo);
+      $('#confirmation-modal div.modal-body p').html('Deseja realmente excluir <strong>' + nome + '</strong> ?');
+      $('#confirmation-modal form').attr('action', $(this).attr('data-url'));
+      event.preventDefault();
+    });
+  }
+};
+Modal.init();
+
+/***/ }),
+
 /***/ "./resources/sass/app.scss":
 /*!*********************************!*\
   !*** ./resources/sass/app.scss ***!
@@ -52894,13 +52930,14 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 0:
-/*!*************************************************************!*\
-  !*** multi ./resources/js/app.js ./resources/sass/app.scss ***!
-  \*************************************************************/
+/*!**************************************************************************************************!*\
+  !*** multi ./resources/js/app.js ./resources/js/confirmation-modal.js ./resources/sass/app.scss ***!
+  \**************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! /home/artur/Soluti/projetos/_estudo/laravel/api/resources/js/app.js */"./resources/js/app.js");
+__webpack_require__(/*! /home/artur/Soluti/projetos/_estudo/laravel/api/resources/js/confirmation-modal.js */"./resources/js/confirmation-modal.js");
 module.exports = __webpack_require__(/*! /home/artur/Soluti/projetos/_estudo/laravel/api/resources/sass/app.scss */"./resources/sass/app.scss");
 
 

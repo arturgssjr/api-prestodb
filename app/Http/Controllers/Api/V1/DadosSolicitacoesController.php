@@ -17,7 +17,7 @@ class DadosSolicitacoesController extends ApiBigDataBaseController
         $this->getPrestoClient()->setTable(DbTable::DB_TABLE_SOLICITACOES);
     }
 
-    public function postDadosSolicitacoesPorCpf(DadosSolicitacoesPorCpf $request)
+    public function dadosSolicitacoesPorCpf(DadosSolicitacoesPorCpf $request)
     {
         $cpf = Str::of($request->cpf)->ltrim(0);
 
@@ -32,7 +32,7 @@ class DadosSolicitacoesController extends ApiBigDataBaseController
         return response()->json($this->getPrestoClient()->getDataResponse());
     }
 
-    public function postDadosSolicitacoesPorCnpj(DadosSolicitacoesPorCnpj $request)
+    public function dadosSolicitacoesPorCnpj(DadosSolicitacoesPorCnpj $request)
     {
         $cnpj = Str::of($request->cnpj)->ltrim(0);
         $this->getPrestoClient()->addFilter("cnpj", "=", $cnpj);

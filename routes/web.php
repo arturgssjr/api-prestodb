@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\OAuth\OAuthController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +22,9 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::group(['prefix' => 'oauth'], function () {
-    Route::get('/', [OAuthController::class, 'index'])->name('oauth.index');
+Route::namespace('OAuth')->prefix('oauth')->name('oauth.')->middleware('auth')->group(function () {
+    Route::resource('/client-credentials', 'ClientCredentialsController');
+    Route::resource('/authorization-code', 'AuthorizationCodeController');
+    Route::resource('/password-grant', 'PasswordGrantController');
+    Route::resource('/personal-access', 'PersonalAccessController');
 });

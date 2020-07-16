@@ -15,7 +15,7 @@ class DadosSociosController extends ApiBigDataBaseController
         $this->getPrestoClient()->setTable(DbTable::DB_TABLE_CNPJ_SOCIOS);
     }
 
-    public function postDadosSocios(DadosSocios $request)
+    public function dadosSocios(DadosSocios $request)
     {
         $this->getPrestoClient()->addFilter("cnpj", "=", $request->cnpj);
         $this->getPrestoClient()->statementClient();

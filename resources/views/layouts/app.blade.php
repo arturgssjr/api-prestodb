@@ -24,7 +24,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ route('home') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    {{ config('app.name', 'Laravel') }} <span class="badge badge-light">{{ config('app.version') }}</span>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -34,8 +34,17 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         @auth
-                            <li class="nav-item">
-                                <a href="{{ route('oauth.index') }}" class="nav-link">OAuth</a>
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    OAuth <span class="caret"></span>
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a href="{{ route('oauth.client-credentials.index') }}" class="dropdown-item">Client Credentials</a>
+                                    <a href="{{ route('oauth.authorization-code.index') }}" class="dropdown-item">Auhtorization Code</a>
+                                    <a href="{{ route('oauth.password-grant.index') }}" class="dropdown-item">Password Grant</a>
+                                    <a href="{{ route('oauth.personal-access.index') }}" class="dropdown-item">Personal Access</a>
+                                </div>
                             </li>
                         @endauth
                     </ul>
@@ -47,11 +56,11 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
-                            {{-- @if (Route::has('register'))
+                            @if (Route::has('register'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
-                            @endif --}}
+                            @endif
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -77,14 +86,11 @@
         </nav>
 
         <main class="py-4">
-            @yield('content')
-        </main>
-
-        <footer class="footer mt-auto py-3">
-            <div class="container pull-right">
-                <span class="text-muted">{{ config('app.version') }}</span>
+            <div class="container">
+                @includeIf('layouts._alerts')
+                @yield('content')
             </div>
-        </footer>
+        </main>
     </div>
 </body>
 </html>

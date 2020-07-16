@@ -15,7 +15,7 @@ class DadosEmpresaController extends ApiBigDataBaseController
         $this->getPrestoClient()->setTable(DbTable::DB_TABLE_CNPJ_EMPRESA);
     }
 
-    public function postDadosEmpresa(DadosEmpresa $request)
+    public function dadosEmpresa(DadosEmpresa $request)
     {
         $this->getPrestoClient()->addFilter("cnpj", "=", $request->cnpj);
         $this->getPrestoClient()->statementClient();
