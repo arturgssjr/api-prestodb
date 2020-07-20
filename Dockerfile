@@ -13,6 +13,7 @@ RUN apt-get update && apt-get install -y \
     libjpeg-dev \
     libmcrypt-dev \
     libreadline-dev \
+    libmemcached-dev \
     libfreetype6-dev \
     g++
 
@@ -32,6 +33,8 @@ RUN docker-php-ext-install \
     calendar \
     pdo_mysql
 
+RUN pecl install memcached \
+    && docker-php-ext-enable memcached
 # Ensure PHP logs are captured by the container
 ENV LOG_CHANNEL=stderr
 
@@ -42,6 +45,14 @@ VOLUME /var/www/html
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 COPY . /var/www/tmp
 RUN cd /var/www/tmp && composer install --no-dev
+
+# COPY --from=base_image /var/www/tmp /var/www/tmp
+# RUN npm set progress=false && \
+#   npm config set depth 0 && \
+#   npm install && \
+#   npm run prod && \
+#   rm -rf node_modules
+# FROM base_image
 
 # Ensure the entrypoint file can be run
 RUN chmod +x /var/www/tmp/docker-entrypoint.sh
