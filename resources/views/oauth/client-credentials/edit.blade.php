@@ -4,7 +4,7 @@
 <div class="row justify-content-center">
     <div class="col-md-12">
 
-        {!! Form::model($client, ['route' => ['oauth.client-credential.update', $client->id], 'method' => 'POST']) !!}
+        {!! Form::model($client, ['route' => ['oauth.client-credentials.update', $client->id], 'method' => 'POST']) !!}
         @method('PUT')
 
         @include('oauth.client-credentials._form')

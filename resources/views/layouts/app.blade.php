@@ -38,7 +38,6 @@
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     OAuth <span class="caret"></span>
                                 </a>
-
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a href="{{ route('oauth.client-credentials.index') }}" class="dropdown-item">Client Credentials</a>
                                     <a href="{{ route('oauth.authorization-code.index') }}" class="dropdown-item">Auhtorization Code</a>

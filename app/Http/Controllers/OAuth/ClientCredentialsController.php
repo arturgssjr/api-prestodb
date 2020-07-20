@@ -4,6 +4,7 @@ namespace App\Http\Controllers\OAuth;
 
 use Illuminate\Http\Request;
 use Laravel\Passport\Passport;
+use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use Laravel\Passport\ClientRepository;
 
@@ -51,7 +52,10 @@ class ClientCredentialsController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => ['required', 'unique:oauth_clients,name'],
+            'name' => [
+                'required',
+                Rule::unique('oauth_clients', 'name')
+            ],
         ]);
 
         $client = $this->clientRepository->create(
@@ -92,7 +96,9 @@ class ClientCredentialsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $client = $this->clientRepository->find($id);
+
+        return view('oauth.client-credentials.edit', compact('client'));
     }
 
     /**
@@ -104,7 +110,27 @@ class ClientCredentialsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => [
+                'required',
+                Rule::unique('oauth_clients', 'name')->ignore($id),
+            ],
+        ]);
+
+        $client = $this->clientRepository->find($id);
+        $client = $this->clientRepository->update(
+            $client,
+            $request->name,
+            ''
+        );
+
+        if ($client) {
+            $request->session()->flash('success', "{$client->name} atualizado com sucesso.");
+        } else {
+            $request->session()->flash('error', "Falha ao atualizar Client Credendtials");
+        }
+
+        return redirect()->route('oauth.client-credentials.show', $client->id);
     }
 
     /**
@@ -116,6 +142,12 @@ class ClientCredentialsController extends Controller
     public function destroy($id)
     {
         $client = $this->clientRepository->findActive($id);
+
+        if (is_null($client)) {
+            session()->flash('warning', "Cliente já está revogado.");
+            return redirect()->route('oauth.client-credentials.index');
+        }
+
         $this->clientRepository->delete($client);
 
         if ($this->clientRepository->revoked($id)) {

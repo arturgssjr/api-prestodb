@@ -22,22 +22,25 @@
         <tr>
             <td class="text-center">{{ $client->id }}</td>
             <td>{{ $client->name }}</td>
-            <td class="text-center"><span class="badge badge-{{ $client->revoked ? 'danger' : 'success' }}">{{ $client->revoked ? 'Revogado' : 'Ativo' }}</span></td>
+            <td class="text-center">
+                <span class="badge badge-{{ $client->revoked ? 'danger' : 'success' }}">{{ $client->revoked ? 'Revogado' : 'Ativo' }}</span>
+            </td>
             <td class="text-center">
                 <a href="{{ route('oauth.client-credentials.show', $client->id) }}" class="btn btn-sm btn-info"
                     title="Visualizar cliente" data-toggle="tooltip" data-placement="top" role="button">
                     <i class="fa fa-info-circle"></i>
                 </a>
-                <a href="{{ route('oauth.client-credentials.edit', $client->id) }}" class="btn btn-sm btn-warning"
-                    title="Alterar cliente" data-toggle="tooltip" data-placement="top" role="button">
+                <a href="{{ route('oauth.client-credentials.edit', $client->id) }}" class="btn btn-sm btn-warning" title="Alterar cliente" data-toggle="tooltip" data-placement="top" role="button">
                     <i class="fas fa-pencil-alt"></i>
                 </a>
-                <button class="btn btn-sm btn-danger load-confirmation-modal" data-toggle="tooltip"
+                <button class="btn btn-sm btn-danger load-confirmation-modal"
+                    data-toggle="tooltip"
                     data-placement="top" title="Excluir cliente" role="button"
                     data-url="{{ route('oauth.client-credentials.destroy', $client->id) }}" data-type="Client Credentials"
                     data-name="{{ $client->name }}" data-target="#confirmation-modal"
                     data-toggle="modal">
-                    <i class="fas fa-trash-alt"></i>
+                <i class="fas fa-trash-alt"></i>
+            </button>
             </td>
         </tr>
         @endforeach

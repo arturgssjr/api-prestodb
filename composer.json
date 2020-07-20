@@ -10,7 +10,7 @@
     "require": {
         "php": "^7.2.5",
         "ext-curl": "^7.3",
-        "artur.junior/presto-client": "v0.1.1",
+        "arturgssjr/presto-client-php": "v0.1.0",
         "caouecs/laravel-lang": "~6.1",
         "fideloper/proxy": "^4.2",
         "fig/http-message-util": "^1.1",
@@ -59,8 +59,8 @@
     "prefer-stable": true,
     "repositories": [
         {
-            "type": "vcs",
-            "url": "git@git.lab.ca.inf.br:artur.junior/presto-client.git"
+            "type": "git",
+            "url": "https://github.com/arturgssjr/presto-client-php.git"
         }
     ],
     "scripts": {
