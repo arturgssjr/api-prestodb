@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -15,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    Log::info('Welcome Page.', ['server' => $_SERVER['SERVER_ADDR'], 'version' => env('APP_VERSION')]);
     return view('welcome');
 });
 

@@ -36,7 +36,7 @@ RUN docker-php-ext-install \
 RUN pecl install memcached \
     && docker-php-ext-enable memcached
 # Ensure PHP logs are captured by the container
-ENV LOG_CHANNEL=stderr
+# ENV LOG_CHANNEL=graylog
 
 # Set a volume mount point for your code
 VOLUME /var/www/html
