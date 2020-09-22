@@ -35,19 +35,19 @@ return [
     */
 
     'channels' => [
-        'graylog' => [
-            'driver' => 'monolog',
-            'level' => 'debug',
-            'handler' => \Monolog\Handler\GelfHandler::class,
-            'handler_with' => [
-                'publisher' => (new \Gelf\Publisher(new \Gelf\Transport\UdpTransport(
-                    config('graylog.host'),
-                    config('graylog.port'),
-                    \Gelf\Transport\UdpTransport::CHUNK_SIZE_LAN
-                ))),
-            ],
-            'formatter' => \Monolog\Formatter\GelfMessageFormatter::class,
-        ],
+        // 'graylog' => [
+        //     'driver' => 'monolog',
+        //     'level' => 'debug',
+        //     'handler' => \Monolog\Handler\GelfHandler::class,
+        //     'handler_with' => [
+        //         'publisher' => (new \Gelf\Publisher(new \Gelf\Transport\UdpTransport(
+        //             config('graylog.host'),
+        //             config('graylog.port'),
+        //             \Gelf\Transport\UdpTransport::CHUNK_SIZE_LAN
+        //         ))),
+        //     ],
+        //     'formatter' => \Monolog\Formatter\GelfMessageFormatter::class,
+        // ],
 
         'stack' => [
             'driver' => 'stack',
