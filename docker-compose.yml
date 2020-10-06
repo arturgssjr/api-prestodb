@@ -1,7 +1,7 @@
-version: '3.5'
+version: "3.5"
 services:
   php:
-    image: arturgssjr/api-consulta-bigdata-kubernetes:latest
+    image: arturgssjr/api-consulta-bigdata:latest
     restart: always
     ports:
       - 8000:80

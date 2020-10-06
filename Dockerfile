@@ -16,7 +16,7 @@ RUN apt-get update && apt-get install -y \
     libmemcached-dev \
     libfreetype6-dev \
     g++
-
+vim
 # Apache configuration
 ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
@@ -38,6 +38,10 @@ RUN pecl install memcached \
 # Ensure PHP logs are captured by the container
 # ENV LOG_CHANNEL=graylog
 
+RUN pecl install -o -f redis \
+    &&  rm -rf /tmp/pear \
+    &&  docker-php-ext-enable redis
+
 # Set a volume mount point for your code
 VOLUME /var/www/html
 
@@ -53,6 +57,9 @@ RUN cd /var/www/tmp && composer install --no-dev
 #   npm run prod && \
 #   rm -rf node_modules
 # FROM base_image
+
+# RUN apt-get update \
+#     && apt-get install -y iputils-ping vim
 
 # Ensure the entrypoint file can be run
 RUN chmod +x /var/www/tmp/docker-entrypoint.sh
