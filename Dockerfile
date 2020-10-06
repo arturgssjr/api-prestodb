@@ -33,11 +33,6 @@ RUN docker-php-ext-install \
     calendar \
     pdo_mysql
 
-RUN pecl install memcached \
-    && docker-php-ext-enable memcached
-# Ensure PHP logs are captured by the container
-# ENV LOG_CHANNEL=graylog
-
 RUN pecl install -o -f redis \
     &&  rm -rf /tmp/pear \
     &&  docker-php-ext-enable redis
