@@ -1,23 +1,32 @@
 #!/bin/bash
 
-cp -R /var/www/tmp/. /var/www/html/
+echo -e "### Criando pasta 'storage'"
+mkdir -p /var/www/html/storage/app/public
+mkdir -p /var/www/html/storage/framework/cache/data
+mkdir -p /var/www/html/storage/framework/sessions
+mkdir -p /var/www/html/storage/framework/testing
+mkdir -p /var/www/html/storage/framework/views
+mkdir -p /var/www/html/storage/logs
+
+echo -e "### Atribuindo permissões ao projeto"
 chown -R www-data:www-data /var/www/html
 
 cd /var/www/html
-echo -n "### Renomeando arquivo .env"
+
+echo -e "### Renomeando arquivo .env"
 mv .env.example .env
 
-echo -n "### Gerando chave da aplicação"
+echo -e "### Gerando chave da aplicação"
 php artisan key:generate --ansi
-echo -n "### Limpando caches da aplicação"
+echo -e "### Limpando caches da aplicação"
 php artisan optimize:clear
-echo -n "### Gerando cache das dependências da aplicação"
+echo -e "### Gerando cache das dependências da aplicação"
 php artisan package:discover
-echo -n "### Gerando cache de configuração da aplicação"
+echo -e "### Gerando cache de configuração da aplicação"
 php artisan config:cache
-echo -n "### Gerando cache das rotas da aplicação"
+echo -e "### Gerando cache das rotas da aplicação"
 php artisan route:cache
-echo -n "### Gerando cache das views da aplicação"
+echo -e "### Gerando cache das views da aplicação"
 php artisan view:cache
 
 exec "$@"

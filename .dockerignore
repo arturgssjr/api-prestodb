@@ -2,3 +2,5 @@
 /vendor
 /nbproject
 /node_modules
+/storage
+gerar-build.sh
