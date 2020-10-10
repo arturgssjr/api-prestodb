@@ -22,5 +22,5 @@ if [ $1 == 'php' ]; then
     docker push arturgssjr/api-consulta-bigdata:latest
     docker push "arturgssjr/api-consulta-bigdata:${API_VERSION}"
 else
-    echo -e "[ERROR] Falha ao recuperar versão da aplicação!"
+    echo -e "[ERROR] Imagem $1 não existe!"
 fi
