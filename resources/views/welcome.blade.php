@@ -82,8 +82,6 @@
             <div class="content">
                 <div class="title m-b-md">
                     {{ config('app.name') }} - {{ config('app.version') }}
-                    <br />
-                    {{ $_SERVER['SERVER_ADDR'] }}
                 </div>
             </div>
         </div>
