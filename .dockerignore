@@ -2,6 +2,5 @@
 /vendor
 /nbproject
 /node_modules
-/storage
-gerar-build.sh
+gerar-imagem.sh
 .git
