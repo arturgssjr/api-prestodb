@@ -82,7 +82,7 @@
             <div class="content">
                 <div class="title m-b-md">
                     {{ config('app.name') }} - {{ config('app.version') }}
-                    @if(app()->environment('local'))
+                    @if(app()->environment(['local', 'testing']))
                         <br />
                         {{ gethostbyname(gethostname()) }}
                     @endif
