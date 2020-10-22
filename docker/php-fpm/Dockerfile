@@ -64,4 +64,4 @@ RUN chown -R www-data:www-data /app
 
 USER www-data
 
-WORKDIR /code
+WORKDIR /var/www
