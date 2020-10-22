@@ -13,4 +13,3 @@ yarn-error.log
 nbproject/
 *.lock
 *lock.json
-/docker

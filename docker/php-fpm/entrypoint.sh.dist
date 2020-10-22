@@ -1,0 +1,35 @@
+#!/bin/bash
+
+if [ "$(ls -A "/app/storage/debugbar")" ]; then
+    rm -Rf /app/storage/debugbar
+fi
+
+echo -e "### Limpando pasta 'storage'"
+rm -Rf /app/storage/app/public/*
+rm -Rf /app/storage/framework/cache/data/*
+rm -Rf /app/storage/framework/sessions/*
+rm -Rf /app/storage/framework/testing/*
+rm -Rf /app/storage/framework/views/*
+rm -Rf /app/storage/logs/*
+
+echo -e "### Atribuindo permissões ao projeto"
+chmod -Rf 777 /app/storage
+chown -Rf www-data. /app
+
+echo -e "### Movendo código-fonte"
+rm -rf /var/www/html
+cp -Rf /app/. /var/www
+chown -Rf www-data. /var/www
+chmod -Rf 777 /var/www/storage
+chmod -Rf 777 /var/www/public
+chmod -Rf 777 /var/www/vendor
+cd /var/www
+
+echo -e "### Limpando caches da aplicação"
+php artisan optimize:clear
+echo -e "### Rodando migrations"
+php artisan migrate --force
+
+php-fpm
+
+exec "$@"
