@@ -50,6 +50,11 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
+                        @if(app()->environment('local'))
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">{{ gethostbyname(gethostname()) }}</a>
+                        </li>
+                        @endif
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">

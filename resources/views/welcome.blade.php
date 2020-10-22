@@ -82,8 +82,10 @@
             <div class="content">
                 <div class="title m-b-md">
                     {{ config('app.name') }} - {{ config('app.version') }}
-                    <br />
-                    {{ gethostbyname(gethostname()) }}
+                    @if(app()->environment('local'))
+                        <br />
+                        {{ gethostbyname(gethostname()) }}
+                    @endif
                 </div>
             </div>
         </div>
