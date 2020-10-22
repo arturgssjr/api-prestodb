@@ -27,6 +27,16 @@ cd /var/www
 
 echo -e "### Limpando caches da aplicação"
 php artisan optimize:clear
+echo -e "### Gerando chave da aplicação"
+php artisan key:generate
+echo -e "### Gerando caches de configurações"
+php artisan config:cache
+echo -e "### Gerando caches de eventos"
+php artisan event:cache
+echo -e "### Gerando caches de rotas"
+php artisan route:cache
+echo -e "### Gerando caches de views"
+php artisan view:cache
 echo -e "### Rodando migrations"
 php artisan migrate --force
 
